@@ -1,12 +1,35 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Groupomania</router-link> |
+      <router-link to="/login" v-if="isLoggedIn"
+        ><a @click="logout">Logout</a></router-link
+      >
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      showButtonAdmin: false,
+      isAdmin: localStorage.getItem('role')
+    };
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout").then(() => this.$router.push("/login"));
+    },
+  },
+};
+</script>
 
 <style>
 #app {
