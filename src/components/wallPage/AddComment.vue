@@ -3,7 +3,7 @@
     <button
       @click="addCommentForm = !addCommentForm"
       v-if="!addCommentForm"
-      class="btn btn-dark align-self-center"
+      class="btn btn-light align-self-center"
       style="font-size:25px;"
     >
       Commenter

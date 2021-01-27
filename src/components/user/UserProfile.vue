@@ -40,11 +40,11 @@
                 <UserBio />
               </div>
             </div>
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end m-5">
               <DeleteUserAccount :id="user._id"/>
             </div>
           </div>
-          <button class="btn btn-danger" @click="showModal = false">
+          <button class="btn btn-danger m-3" @click="showModal = false">
             Fermer
           </button>
         </div>
@@ -105,7 +105,7 @@ export default {
 }
 .modale {
   position: fixed;
-  top: 45%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;

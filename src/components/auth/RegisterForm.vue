@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div id="RegisterForm" class="col-md-12">
-      <div class="card card-container">
+      <div class="card-container">
         <h1 class="m-2">Créer votre compte</h1>
         <form class="form" @submit.prevent="register">
           <div class="form-group m-2">
@@ -47,7 +47,7 @@
               v-model="password"
             />
           </div>
-          <button type="submit" class="btn btn-primary col-3 m-3">
+          <button type="submit" class="btn btn-primary m-3">
             Créez votre compte
           </button>
         </form>

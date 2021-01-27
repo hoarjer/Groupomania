@@ -9,9 +9,17 @@
       >
         Ajouter un Gif
       </button>
+      <button
+        @click="addPostForm = !addPostForm"
+        v-else
+        class="btn btn-light align-self-center p-3"
+        style="font-size:25px;"
+      >
+        ^
+      </button>
       <form
         v-show="addPostForm"
-        class="form"
+        class="form col"
         enctype="multipart/form-data"
         method="POST"
       >
@@ -81,7 +89,6 @@ export default {
         this.post.title = '';
         this.post.gif_url = '';
         this.imagepreview = null;
-      // location.reload();
       });
       
     },

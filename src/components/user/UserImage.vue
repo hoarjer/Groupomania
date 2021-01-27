@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <div class="card p-3 profil">
+    <button class="btn btn-light m-2" @click="show = !show">
+      Changer la photo
+    </button>
+    <div v-if="show" class="card-container p-3 profil">
       <form @submit.prevent="update">
         <div class="custom-file">
           <input
@@ -37,6 +40,7 @@ export default {
       image: "",
       imagepreview: null,
       id: localStorage.getItem("userId"),
+      show: false,
     };
   },
   

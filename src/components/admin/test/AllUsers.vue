@@ -1,6 +1,6 @@
 <template>
   <div id="AllUsers" class="container mb-5">
-    <div @click="show = !show" class="card-header">
+    <div @click="show = !show" class="card-header btn col">
       <h2>Tous les utilisateurs ({{ users.length }})</h2>
     </div>
 
@@ -25,7 +25,7 @@
               <DeleteUserButton :id="user._id"/>
             </div>
           </div>
-          <div class="d-flex border justify-content-start">
+          <div class="d-flex justify-content-start flex-wrap">
             <PostsByUser :id="user._id" />
             <CommentsByUser :id="user._id" />
             <UserProfile :id="user._id" />

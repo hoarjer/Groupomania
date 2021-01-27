@@ -1,8 +1,9 @@
 <template>
   <div class="container" >
-    <div class="card profil">
-      
-      
+    <button class="btn btn-light m-2" @click="show = !show">
+      Changer la bio
+    </button>
+    <div v-if="show" class="card-container profil">
       <form @submit.prevent="update">
         <label for="bio"></label>
         <input type="text" @change="bioTextChange" v-bind:value="bioText" id="bio" placeholder="bio" />
@@ -21,6 +22,7 @@ export default {
   data() {
     return {
       bioText: "",
+      show: false,
     };
   },
   props: ["id"],

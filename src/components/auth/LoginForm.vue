@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div id="loginForm" class="col-md-12">
-      <div class="card card-container">
+      <div class="card-container">
         <h1 class="m-2">J'ai déjà un compte</h1>
         <form class="form" @submit.prevent="login">
           <div class="form-group m-2">
@@ -58,9 +58,6 @@ export default {
         .then(() => {
           this.$router.push("/");
         })
-        // .then(() => {
-        //   this.$store.dispatch("getOneUser")
-        // })
         .catch((err) => console.log(err));
     },
   },

@@ -1,6 +1,6 @@
 <template>
   <div id="AdminComments" class="container">
-    <div @click="show = !show" class="card-header">
+    <div @click="show = !show" class="card-header btn col">
       <h2>Nouveaux commentaires ({{ comments.length }})</h2>
       </div>
     <div class="raw-md" v-for="comment in comments" :key="comment._id">
