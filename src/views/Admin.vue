@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import AdminDashboard from "../../components/admin/test/AdminDashboard";
+import AdminDashboard from "../components/admin/test/AdminDashboard";
 export default {
   components: {
     AdminDashboard

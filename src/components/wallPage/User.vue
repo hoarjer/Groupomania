@@ -61,19 +61,15 @@ export default {
   },
   methods: {
     showUser() {
-      console.log(this.id);
       axios
         .get("http://localhost:3000/api/auth/users/" + this.id)
         .then((res) => {
-          console.log(res);
           this.$store.state.user = res.data.user;
-          console.log(this.$store.state.user);
           this.showModal = true;
         });
     },
     updateBio() {
       this.user = this.$store.state.user;
-      console.log(this.user);
     },
   },
 };

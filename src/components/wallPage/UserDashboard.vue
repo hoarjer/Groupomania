@@ -2,10 +2,10 @@
   <div id="UserDashboard" class="container col-12 col-md-9 col-lg-8">
     <div class="col-12 mb-2 d-flex justify-content-around flex-wrap">
       <div class="mb-5">
-        <router-link :to="`/user/${id}`" class="link">
-          <UserProfile />
-        </router-link>
-        <router-link :to="`/admin`" v-if="isAdmin">
+        <div>
+          <UserProfile :id="id"/>
+        </div>
+        <router-link :to="`/admin`">
           <AdminButton />
         </router-link>
       </div>
@@ -20,9 +20,11 @@
 
 <script>
 import AddPost from "./AddPost";
-import UserProfile from "./UserProfile";
+import UserProfile from "../user/UserProfile";
 import AdminButton from "../admin/test/AdminButton";
 import LastPosts from "./LastPosts";
+import axios from "axios";
+
 export default {
   name: "UserDashboard",
   components: {
@@ -38,33 +40,34 @@ export default {
       comment: [],
       userId: localStorage.getItem("userId"),
       role: localStorage.getItem("role"),
-      isAdmin: false
+      isAdmin: false,
     };
   },
   mounted() {
     this.$store.dispatch("getLastPosts").then(() => {
       });
-      // window.location.reload();
   },
   computed: {
     posts() {
       return this.$store.state.posts;
     },
+    user() {
+      return this.$store.state.userLoggedIn;
+    }
   },
   created() {
-    this.$store.dispatch("getOneUser");
-    // console.log(this.$store.state.user);
-    console.log(this.role);
-    if(this.role == "true") {
-      this.isAdmin = true;
+    axios
+        .get("http://localhost:3000/api/auth/users/" + this.id)
+        .then((res) => {
+          this.$store.state.userLoggedIn = res.data.user;
+        });
+  },
+  methods: {
+    updatePosts(e) {
+      console.log("updatePosts", e);
+      this.$store.state.adminPosts.push(e);
     }
-  }
-  // methods: {
-  //   updatePosts(e) {
-  //     console.log("updatePosts", e);
-  //     this.$store.state.adminPosts.push(e);
-  //   }
-  // },
+  },
 };
 </script>
 

@@ -21,8 +21,9 @@ export default {
   },
   methods: {
     logout() {
-      window.location.reload();
-      this.$store.dispatch("logout").then(() => {});
+      // window.location.reload();
+      localStorage.clear();
+      this.$store.dispatch("logout");
     },
   },
   beforeCreate() {

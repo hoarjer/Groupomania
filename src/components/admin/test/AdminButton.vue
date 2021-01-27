@@ -1,6 +1,6 @@
 <template>
   <div id="AdminButton" >
-    <button class="btn btn-success">Administrateur</button>
+    <button v-if="isAdmin" class="btn btn-success">Administrateur</button>
   </div>
 </template>
 
@@ -9,22 +9,19 @@ export default {
   name: "AdminButton",
   data() {
     return {
+      role: localStorage.getItem("role"),
       isAdmin: false,
     };
   },
   computed: {
-    role() {
-      return this.$store.state.role;
+    user() {
+      return this.$store.state.user;
     },
   },
   created() {
-    if (this.role == "true") {
-        console.log(this.isAdmin);
+    if (this.role === "true") {
       this.isAdmin = true;
-      console.log(this.isAdmin);
-    //   window.location.reload();
     }
-
   },
 };
 </script>

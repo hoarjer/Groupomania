@@ -58,6 +58,9 @@ export default {
         .then(() => {
           this.$router.push("/");
         })
+        // .then(() => {
+        //   this.$store.dispatch("getOneUser")
+        // })
         .catch((err) => console.log(err));
     },
   },

@@ -10,14 +10,14 @@
           <div class="m-2 p-2 d-flex flex-wrap border-top">
             <div class="card-header d-flex justify-content-between">
               <div>
-                <router-link :to="`/user/${user._id}`" class="d-flex">
+                <div class="d-flex">
                   <img
                     class="figure-img img-fluid rounded mr-3"
                     style="max-height:30px;"
                     :src="user.img_url"
                   />
-                  <p>{{ user.firstname }} {{ user.lastname }}</p>
-                </router-link>
+                  <p><strong>{{ user.firstname }} {{ user.lastname }}</strong></p>
+                </div>
                 <div>
                   <AdminRoleButton v-bind:id="user._id" />
                 </div>
@@ -28,6 +28,7 @@
           <div class="d-flex border justify-content-start">
             <PostsByUser :id="user._id" />
             <CommentsByUser :id="user._id" />
+            <UserProfile :id="user._id" />
           </div>
         </div>
       </div>
@@ -40,6 +41,7 @@ import PostsByUser from "./PostsByUser";
 import CommentsByUser from "./CommentsByUser";
 import AdminRoleButton from "./AdminRoleButton";
 import DeleteUserButton from "./DeleteUserButton";
+import UserProfile from "../../wallPage/User";
 
 export default {
   name: "AllUsers",
@@ -48,6 +50,7 @@ export default {
     CommentsByUser,
     DeleteUserButton,
     AdminRoleButton,
+    UserProfile
   },
   data() {
     return {

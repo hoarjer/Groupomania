@@ -15,26 +15,10 @@ const routes = [
       requiresAuth: true
   }
   },
-  
-  {
-    path: '/user_image',
-    name: 'UserImage',
-    component: () => import('../views/user/UserImage.vue')
-  },
-  {
-    path: '/user_bio',
-    name: 'UserBio',
-    component: () => import('../views/user/UserBio.vue')
-  },
-  {
-    path: '/user/:id',
-    name: 'User',
-    component: () => import('../views/user/User.vue')
-  },
   {
     path: '/admin',
     name: 'Admin',
-    component: () => import('../views/admin/AllPosts.vue')
+    component: () => import('../views/Admin.vue')
   },
   {
     path: '/login',

@@ -32,9 +32,7 @@ export default {
   props: ["id"],
 
   created() {
-    console.log(this.id);
     axios.get("http://localhost:3000/api/posts/user/" + this.id).then((res) => {
-      console.log(res.data.posts);
       this.posts = res.data.posts;
     });
   },

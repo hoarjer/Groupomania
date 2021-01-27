@@ -53,9 +53,6 @@
         </form>
       </div>
     </div>
-    <div v-for="user in users" :key="user._id">
-      <p>{{ user.firstname }}</p>
-    </div>
   </div>
 </template>
 
@@ -73,9 +70,6 @@ export default {
   },
   methods: {
     register() {
-      // console.log(this.user);
-      // this.$store.dispatch("createUser", this.user);
-
       let data = {
         lastname: this.lastname,
         firstname: this.firstname,
@@ -87,14 +81,6 @@ export default {
         .dispatch("register", data)
         .then(() => this.$router.push("/"))
         .catch((err) => console.log(err));
-    },
-  },
-  created() {
-    this.$store.dispatch("getAllUsers");
-  },
-  computed: {
-    users() {
-      return this.$store.state.users;
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <div id="Comments">
-    <button class="btn btn-light " @click="showPost">
-      Commentaire ({{ comments.length }})
+    <button class="btn btn-light mb-3" @click="showPost">
+      Voir
     </button>
     <transition name="fade" appear>
       <div
@@ -63,13 +63,10 @@ export default {
   },
   methods: {
     showPost() {
-      console.log(this.id);
       axios
         .get("http://localhost:3000/api/comments/posts/" + this.id)
         .then((res) => {
-          console.log(res);
           this.$store.state.comments = res.data.comments;
-          console.log(this.$store.state.comments);
           this.showModal = true;
         });
     },

@@ -19,15 +19,15 @@ export default new Vuex.Store({
     role: localStorage.getItem('role') || '',
     users: [],
     user: {},
+    userLoggedIn: {},
     admin: [],
   },
   mutations: {
     UPDATE_USER_BIO(state, data) {
-      state.user.bio = data.bio;
+      state.userLoggedIn.bio = data.bio;
     },
     UPDATE_USER_IMAGE(state, data) {
-     console.log(state.user.img_url);
-     state.user.img_url = data;
+     state.userLoggedIn.img_url = data;
     },
     GET_ADMIN_COMMENTS(state, comments) { 
       state.adminComments = comments;
@@ -37,11 +37,9 @@ export default new Vuex.Store({
     },
     GET_POSTS(state, posts) {
       state.posts = posts;
-      console.log(state.posts);
     },
     ADD_POST(state, post) {
       state.adminPosts.push(post);
-      console.log(state.adminPosts);
     },
     AUTH_REQUEST(state) {
       state.status = 'loading';
@@ -60,10 +58,11 @@ export default new Vuex.Store({
       state.token = '';
       state.role = '';
       state.userId = '';
+      state.user = {};
+      state.userLoggedIn = {};
     },
     GET_ALL_USERS(state, users) {
       state.users = users;
-      console.log(state.users);
     }, 
     GET_ONE_USER(state, user) {
       state.user = user;
@@ -77,10 +76,8 @@ export default new Vuex.Store({
         method: "PUT",
         data: data
       };
-      axios(req).then((res) => {
+      axios(req).then(() => {
         commit("UPDATE_USER_BIO", data);
-        console.log(data);
-        console.log(res);
       });
     },
     updateUserImage({ commit }, data) {
@@ -90,15 +87,13 @@ export default new Vuex.Store({
         method: "PUT",
         data: data
       };
-      axios(req).then((res) => {
+      axios(req).then(() => {
         commit("UPDATE_USER_IMAGE", data);
-        console.log(res);
       });
     },
     getAdminComments({ commit }) {
       commentService.getAdminComments()
         .then(res => {
-          console.log(res);
           commit("GET_ADMIN_COMMENTS", res.data.comments);
         })
         .catch(err => console.log(err))
@@ -106,7 +101,6 @@ export default new Vuex.Store({
     getAdminPosts({ commit }) {
       postService.getAdminPosts()
         .then(res => {
-          console.log(res);
           commit("GET_ADMIN_POSTS", res.data.posts);
         })
         .catch(err => console.log(err))
@@ -115,14 +109,12 @@ export default new Vuex.Store({
       postService.getLastPosts()
         .then(res => {
           commit("GET_POSTS", res.data.posts);
-          console.log(res);
         })
         .catch(err => console.log(err))
     },
     addPost({ commit }, post) {
       postService.addPost(post).then((res) => {
         commit("ADD_POST", res.data.post);
-        console.log(res.data.post);
       })
     },
     register({ commit }, user) {
@@ -160,7 +152,6 @@ export default new Vuex.Store({
             localStorage.setItem('role', role);
             axios.defaults.headers.common['Authorization'] = token;
             commit('AUTH_SUCCESS', token, user, role);
-            console.log(role);
             resolve(res);
           })
           .catch(err => {
@@ -182,7 +173,6 @@ export default new Vuex.Store({
       userService.getAllUsers()
         .then(res => {
           commit("GET_ALL_USERS", res.data.users);
-          console.log(res);
         })
         .catch(err => console.log(err))
     }, 
@@ -190,7 +180,6 @@ export default new Vuex.Store({
       userService.getOneUser()
       .then( res => {
         commit('GET_ONE_USER', res.data.user);
-        console.log(res);
       })
     },
   },

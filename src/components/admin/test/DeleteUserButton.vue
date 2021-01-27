@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <button @click="suppr" class="btn btn-light w-25">Supprimer compte</button>
+  <div class="d-flex align-items-end">
+    <button @click="suppr" class="btn btn-dark h-50">Supprimer compte</button>
   </div>
 </template>
 
@@ -11,14 +11,10 @@ export default {
     props: ["id"],
     methods: {
     suppr() {
-      console.log(this.id);
-      console.log(this.$store.state.users);
       axios
           .delete("http://localhost:3000/api/auth/users/" + this.id)
-          .then((res) => {
-            console.log(res);
+          .then(() => {
             this.$store.state.users = this.$store.state.users.filter((user) => user._id != this.id);
-            console.log(this.$store.state.users);
           });
     }
   },

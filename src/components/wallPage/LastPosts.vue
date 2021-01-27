@@ -20,8 +20,10 @@
         {{ post.title }}
       </h2>
       <div>
-        <div><Comments v-bind:id="post._id" /></div>
-        
+        <div class="d-flex align-items-center">
+          <p class="mr-2">Commentaires ({{ post.comments.length }})</p>
+          <Comments v-bind:id="post._id" />
+        </div>
       </div>
     </div>
     <div>

@@ -18,12 +18,10 @@ export default {
         .put("http://localhost:3000/api/posts/" + this.id, {
           is_public: true,
         })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           this.$store.state.adminPosts = this.$store.state.adminPosts.filter(
             (post) => post._id != this.id
           );
-          console.log(this.$store.state.adminPosts);
         });
     },
   },
