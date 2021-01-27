@@ -1,11 +1,11 @@
 <template>
-  <div class="container">
+  <div class="container" >
     <div class="card profil">
       
       
       <form @submit.prevent="update">
         <label for="bio"></label>
-        <input type="text" v-model="user.bio" id="bio" placeholder="bio" />
+        <input type="text" @change="bioTextChange" v-bind:value="bioText" id="bio" placeholder="bio" />
         <button type="submit" class="btn btn-success ml-3">
           Modifier la bio
         </button>
@@ -20,31 +20,30 @@ import axios from "axios";
 export default {
   data() {
     return {
-      user: {
-        bio: "",
-      },
-      id: localStorage.getItem("userId"),
+      bioText: "",
     };
   },
+  props: ["id"],
   mounted() {
     const baseUrl = "http://localhost:3000/api/auth";
-    const userId = localStorage.getItem("userId");
-    axios.get(`${baseUrl}/users/${userId}`).then((res) => {
+    // const userId = localStorage.getItem("userId");
+    axios.get(`${baseUrl}/users/${this.id}`).then((res) => {
       this.user = res.data.user;
     });
   },
   methods: {
     update() {
-      const bio = this.user.bio;
+      const bio = this.bioText;
       this.$store
-        .dispatch("updateUser", { bio })
+        .dispatch("updateUserBio", { bio })
         .then(() => {
-          this.$emit("update", bio);
         })
         .catch((err) => console.log(err));
-      this.user.bio = "";
-      window.location.reload();
+      this.bioText = "";
     },
+    bioTextChange(e) {
+      this.bioText = e.target.value;
+    }
   },
 };
 </script>

@@ -1,11 +1,12 @@
 <template>
   <div class="container">
     <div class="card p-3 profil">
-      <form @submit.prevent="updateUser">
+      <form @submit.prevent="update">
         <div class="custom-file">
           <input
             type="file"
             @change="imageSelected"
+            
             class="custom-file-input"
             id="customFile"
           />
@@ -33,12 +34,12 @@ import moment from "moment";
 export default {
   data() {
     return {
-      img_url: "",
+      image: "",
       imagepreview: null,
       id: localStorage.getItem("userId"),
     };
   },
-  props: ['user'],
+  
   filters: {
     moment: function(date) {
       return moment(date)
@@ -48,23 +49,18 @@ export default {
   },
   methods: {
     imageSelected(e) {
-      this.img_url = e.target.files[0];
-
+      this.image = e.target.files[0];
       let reader = new FileReader();
-      reader.readAsDataURL(this.img_url);
+      reader.readAsDataURL(e.target.files[0]);
       reader.onload = (e) => {
         this.imagepreview = e.target.result;
       };
     },
-    updateUser() {
-      const image = this.img_url;
+    update() {
       const data = new FormData();
-      data.append("image", image);
+      data.append("image", this.image);
       this.$store
-        .dispatch("updateUser", data)
-        .then(() => {
-          // this.img_url = res.File.name;
-        })
+        .dispatch("updateUserImage", data)
         .catch((err) => console.log(err));
         window.location.reload();
     },

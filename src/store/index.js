@@ -9,33 +9,39 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    adminPosts: [],
+    userPosts: [],
     posts: [],
+    adminComments: [],
     comments: [],
     status: '',
     token: localStorage.getItem('token') || '',
     role: localStorage.getItem('role') || '',
     users: [],
-    user: {}
+    user: {},
+    admin: [],
   },
   mutations: {
-    // DELETE_POST(state, id) {
-    //   state.posts = state.posts.filter((post) => post._id != id);
-    // },
-    UPDATE_USER(state, user) {
-      state.user = user;
+    UPDATE_USER_BIO(state, data) {
+      state.user.bio = data.bio;
     },
-    GET_ADMIN_COMMENTS(state, comments) {
-      state.comments = comments;
+    UPDATE_USER_IMAGE(state, data) {
+     console.log(state.user.img_url);
+     state.user.img_url = data;
     },
-    // GET_ADMIN_POSTS(state, posts) {
-    //   state.posts = posts;
-    // },
+    GET_ADMIN_COMMENTS(state, comments) { 
+      state.adminComments = comments;
+    },
+    GET_ADMIN_POSTS(state, posts) {
+      state.adminPosts = posts;
+    },
     GET_POSTS(state, posts) {
       state.posts = posts;
+      console.log(state.posts);
     },
     ADD_POST(state, post) {
-      state.posts.push(post);
-      console.log(post);
+      state.adminPosts.push(post);
+      console.log(state.adminPosts);
     },
     AUTH_REQUEST(state) {
       state.status = 'loading';
@@ -52,25 +58,40 @@ export default new Vuex.Store({
     LOGOUT(state) {
       state.status = '';
       state.token = '';
+      state.role = '';
+      state.userId = '';
     },
     GET_ALL_USERS(state, users) {
       state.users = users;
+      console.log(state.users);
+    }, 
+    GET_ONE_USER(state, user) {
+      state.user = user;
     }
   },
   actions: {
-    // deletePost({commit}, id) {
-    //   commit('DELETE_POST', id);
-    // },
-    updateUser({ commit }, user) {
+    updateUserBio({ commit }, data) {
       const userId = localStorage.getItem("userId");
       let req = {
         url: `http://localhost:3000/api/auth/users/${userId}`,
         method: "PUT",
-        data: user
+        data: data
       };
       axios(req).then((res) => {
-        commit("UPDATE_USER", user);
-        console.log(user);
+        commit("UPDATE_USER_BIO", data);
+        console.log(data);
+        console.log(res);
+      });
+    },
+    updateUserImage({ commit }, data) {
+      const userId = localStorage.getItem("userId");
+      let req = {
+        url: `http://localhost:3000/api/auth/users/${userId}`,
+        method: "PUT",
+        data: data
+      };
+      axios(req).then((res) => {
+        commit("UPDATE_USER_IMAGE", data);
         console.log(res);
       });
     },
@@ -86,7 +107,7 @@ export default new Vuex.Store({
       postService.getAdminPosts()
         .then(res => {
           console.log(res);
-          commit("GET_POSTS", res.data.posts);
+          commit("GET_ADMIN_POSTS", res.data.posts);
         })
         .catch(err => console.log(err))
     },
@@ -99,8 +120,9 @@ export default new Vuex.Store({
         .catch(err => console.log(err))
     },
     addPost({ commit }, post) {
-      postService.addPost(post).then(() => {
-        commit("ADD_POST", post);
+      postService.addPost(post).then((res) => {
+        commit("ADD_POST", res.data.post);
+        console.log(res.data.post);
       })
     },
     register({ commit }, user) {
@@ -115,7 +137,7 @@ export default new Vuex.Store({
             localStorage.setItem('userId', userId);
             localStorage.setItem('role', role);
             axios.defaults.headers.common['Authorization'] = token;
-            commit('AUTH_SUCCESS', token, user);
+            commit('AUTH_SUCCESS', token, user, role);
             resolve(res);
           })
           .catch(err => {
@@ -163,7 +185,14 @@ export default new Vuex.Store({
           console.log(res);
         })
         .catch(err => console.log(err))
-    }
+    }, 
+    getOneUser({ commit }) {
+      userService.getOneUser()
+      .then( res => {
+        commit('GET_ONE_USER', res.data.user);
+        console.log(res);
+      })
+    },
   },
   getters: {
     isLoggedIn: state => !!state.token,
@@ -172,8 +201,10 @@ export default new Vuex.Store({
     posts(state) {
       return state.posts;
     },
-    // allAdminPosts: (state) => state.posts,
-    updateUser: (state) => state.user
+    adminPosts: (state) => state.adminPosts,
+    allUsers: (state) => state.users,
+    allPosts :(state) => state.posts,
+    user: (state) => state.user,
   },
   modules: {
   }

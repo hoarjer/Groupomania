@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Groupomania</router-link> |
-      <router-link to="/login" v-if="isLoggedIn"
+    <div id="nav" class="container d-flex justify-content-between">
+      <router-link to="/">
+        <img src="./assets/groupomania.png" />
+      </router-link>
+      <router-link to="/login" v-if="isLoggedIn" class="btn btn-dark"
         ><a @click="logout">Logout</a></router-link
       >
     </div>
@@ -12,12 +14,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      showButtonAdmin: false,
-      isAdmin: localStorage.getItem('role')
-    };
-  },
   computed: {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
@@ -25,8 +21,14 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch("logout").then(() => this.$router.push("/login"));
+      window.location.reload();
+      this.$store.dispatch("logout").then(() => {});
     },
+  },
+  beforeCreate() {
+    if (this.isLoggedIn) {
+      this.$router.push({ name: "login" });
+    }
   },
 };
 </script>
@@ -46,7 +48,7 @@ export default {
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #fff;
 }
 
 #nav a.router-link-exact-active {

@@ -1,11 +1,7 @@
 <template>
-  <div id="AllCommentsByUser">
-    <button
-      class="btn btn-light "
-     
-      @click="allCommentsByUser"
-    >
-      voir
+  <div id="Post">
+    <button class="btn btn-primary" @click="showPost">
+      voir post
     </button>
     <transition name="fade" appear>
       <div
@@ -15,9 +11,13 @@
       ></div>
     </transition>
     <transition name="slide" appear>
-      <div class="modale ml-2" v-if="showModal">
-        <div v-for="comment in comments" :key="comment._id">
-          <h3>{{ comment.content }}</h3>
+      <div class="modale" v-if="showModal">
+        <div>
+           <img
+        :src="post.gif_url"
+        class="figure-img img-fluid rounded"
+        style="max-height:600px;"
+      />
         </div>
         <button class="btn btn-danger" @click="showModal = false">
           Fermer
@@ -29,26 +29,31 @@
 
 <script>
 import axios from "axios";
+
 export default {
-    name: "AllCommentsByUser",
-    props: ["id"],
-    data() {
-        return {
-            comments:[],
-            showModal: false,
-        }
+  name: "Post",
+  props: ["id"],
+  data() {
+    return {
+        post: [],
+      showModal: false,
+    };
+  },
+  methods: {
+    showPost() {
+      console.log(this.id);
+      axios
+        .get("http://localhost:3000/api/posts/" + this.id)
+        .then((res) => {
+          console.log(res);
+          this.post = res.data.post;
+          this.showModal = true;
+        });
     },
-    methods: {
-      allCommentsByUser() {
-          console.log(this.id);
-          axios.get(
-          "http://localhost:3000/api/comments/user/" + this.id)
-          .then(res => {
-              console.log(res);
-            this.comments = res.data.comments;
-              this.showModal = true;
-          });
-      }
+    updateBio() {
+      this.user = this.$store.state.user;
+      console.log(this.user);
+    },
   },
 };
 </script>
@@ -64,13 +69,12 @@ export default {
   background-color: rgba(0, 0, 0, 0.3);
 }
 .modale {
-  position: relative;
+  position: fixed;
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  width: 100%;
-  /* max-width: 500px; */
+  width: 75%;
   background-color: #fff;
   border-radius: 16px;
 }
@@ -90,6 +94,6 @@ export default {
 }
 .slide-enter,
 .slide-leave-to {
-  transform: translateY(-50%) translateX(100vw); 
+  transform: translateY(-50%) translateX(100vw);
 }
 </style>

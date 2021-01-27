@@ -15,16 +15,7 @@ const routes = [
       requiresAuth: true
   }
   },
-  {
-    path: '/post/:id',
-    name: 'Post',
-    component: () => import('../views/Post.vue')
-  },
-  {
-    path: '/user_account/:id',
-    name: 'UserAccount',
-    component: () => import('../views/user/UserAccount.vue')
-  },
+  
   {
     path: '/user_image',
     name: 'UserImage',
@@ -38,7 +29,7 @@ const routes = [
   {
     path: '/user/:id',
     name: 'User',
-    component: () => import('../views/User.vue')
+    component: () => import('../views/user/User.vue')
   },
   {
     path: '/admin',

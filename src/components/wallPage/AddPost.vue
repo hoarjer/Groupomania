@@ -4,7 +4,7 @@
       <button
         @click="addPostForm = !addPostForm"
         v-if="!addPostForm"
-        class="btn btn-primary align-self-center p-3"
+        class="btn btn-dark align-self-center p-3"
         style="font-size:25px;"
       >
         Ajouter un Gif
@@ -12,14 +12,12 @@
       <form
         v-show="addPostForm"
         class="form"
-        @submit.prevent="addPost"
         enctype="multipart/form-data"
         method="POST"
       >
         <div class="form-group m-2">
           <label for="title" class="text-left">Titre : </label>
-          <!-- <input id="title" class="form-control" v-model="post.title" /> -->
-          <input id="title" class="form-control" @change="postTitleChange" v-bind:value="post.title" />
+          <input id="title" class="form-control" v-model="post.title" />
         </div>
 
         <div class="custom-file">
@@ -39,14 +37,15 @@
             style="max-height:100px;"
           />
         </div>
-        <button class="btn btn-success mt-5" type="submit">Choisir</button>
+        <button @click.prevent="addPost" class="btn btn-success mt-5">
+          Choisir
+        </button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-// import { mapActions } from "vuex";
 
 export default {
   name: "AddPost",
@@ -60,11 +59,6 @@ export default {
       imagepreview: null,
     };
   },
-  // computed: {
-  //   post() {
-  //     return this.$strore.state.post; 
-  //   }
-  // },
   methods: {
     gifSelected(e) {
       this.post.gif_url = e.target.files[0];
@@ -75,25 +69,22 @@ export default {
         this.imagepreview = e.target.result;
       };
     },
+    postTitleChange(e) {
+      this.post.title = e.target.value;
+    },
     addPost() {
-      const gif = this.post.gif_url;
       const data = new FormData();
-      data.append("image", gif);
+      data.append("image", this.post.gif_url);
       data.append("title", this.post.title);
       this.$store.dispatch("addPost", data).then(() => {
-        console.log(this.post);
         this.addPostForm = false;
         this.post.title = '';
         this.post.gif_url = '';
         this.imagepreview = null;
-        // this.$emit("addpost");
-      });
       // location.reload();
+      });
+      
     },
-    postTitleChange(e) {
-      this.post.title = e.target.value;
-    }
-    // ...mapActions(["addPost"])
   },
 };
 </script>

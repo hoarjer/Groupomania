@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const baseUrl = "http://localhost:3000/api/auth";
+const userId = localStorage.getItem('userId');
 
 export default {
     register(user) {
@@ -11,5 +12,9 @@ export default {
     },
     getAllUsers() {
         return axios.get(`${baseUrl}/users`)
+    },
+    getOneUser() {
+        return axios.get(`${baseUrl}/users/${userId}`)
+ 
     }
 }

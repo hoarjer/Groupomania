@@ -1,15 +1,15 @@
 <template>
   <div class="container">
-    <div class="card">
-      <div class="photo-profil mb-5">
+    <div class="userProfile d-flex justify-content-around flex-wrap">
+      <div class="photo-profil ">
         <div class="photo">
           <img
             :src="user.img_url"
             alt="Photo de profil"
-            class="figuire-img img-fluid rounded mt-5"
+            class="figuire-img img-fluid rounded"
             style="max-height:150px;"
           />
-          <div v-show="prout">
+          <div v-if="isAdmin">
             <button
               class="btn btn-success mt-2"
               @click="addImageForm = !addImageForm"
@@ -21,11 +21,10 @@
           </div>
         </div>
       </div>
-      <h1>{{ user.firstname }} {{ user.lastname }}</h1>
-      <!-- <p><strong>Email:</strong> {{ user.email }}</p> -->
-      <div class="container bio col-lg-6 mb-5" v-on:update="updateBio">
+      <div class="bio" v-on:update="updateBio">
+        <h1>{{ user.firstname }} {{ user.lastname }}</h1>
         <p><strong>Bio: </strong>{{ user.bio }}</p>
-        <div v-show="prout">
+        <div v-if="isAdmin" >
           <button
             class="btn btn-success mt-2"
             @click="addBioForm = !addBioForm"
@@ -33,14 +32,17 @@
           >
             Changer la bio
           </button>
-          <UserBio v-show="addBioForm" />
+          <UserBio v-show="addBioForm" v-bind:id="user._id" />
+        </div>
+        <div>
+          <DeleteUserAccount v-bind:id="user._id"/>
         </div>
       </div>
     </div>
     <div class="mt-5">
       <h2>Les Gifs de {{ user.firstname }}</h2>
-      <div class="card m-2" v-for="post in user.posts" :key="post._id">
-        <h2 class="text-left">{{ post.title }}</h2>
+      <div class="m-2" v-for="post in user.posts" :key="post._id">
+        <h2 class="text-left card-header">{{ post.title }}</h2>
         <div class="gif">
           <img
             :src="post.gif_url"
@@ -49,18 +51,12 @@
           />
         </div>
 
-        <div class="border bottom-post">
-          <router-link
-            :to="{
-              name: 'Post',
-              params: { id: post._id },
-            }"
-          >
+        <div class="bottom-post">
+          <div>
             <button class="btn btn-primary">
               Commentaire(s) ({{ post.comments.length }})
             </button>
-          </router-link>
-          <!-- <p class="">{{ post.created_at | moment }}</p> -->
+          </div>
         </div>
       </div>
     </div>
@@ -68,56 +64,43 @@
 </template>
 
 <script>
-import axios from "axios";
-import moment from "moment";
-import UserBio from "./user/UserBio";
-import UserImage from "./user/UserImage";
+import DeleteUserAccount from "../admin/test/DeleteUserButton";
+
+import UserBio from "./UserBio";
+import UserImage from "./UserImage";
 
 export default {
   data() {
     return {
-      user: [],
       userId: this.$route.params.id,
       id: localStorage.getItem("userId"),
-      prout: false,
+      updateButtons: false,
       addBioForm: false,
       addImageForm: false,
+      role: localStorage.getItem("role"),
+      isAdmin: false,
+      user: this.$store.getters.user,
     };
   },
-  // props: {
-  //   user: {}
-  // },
   components: {
     UserBio,
     UserImage,
-  },
-  filters: {
-    moment: function(date) {
-      return moment(date)
-        .startOf("hour")
-        .fromNow();
-    },
+    DeleteUserAccount
   },
   mounted() {
-    const baseUrl = "http://localhost:3000/api/auth";
-    if (this.userId === this.id) {
-      axios.get(`${baseUrl}/users/${this.userId}`).then((res) => {
-        this.user = res.data.user;
-        this.prout = true;
-      });
-    } else {
-      axios.get(`${baseUrl}/users/${this.userId}`).then((res) => {
-        this.user = res.data.user;
-        this.prout = false;
-      });
+    console.log(this.user);
+    this.$store.dispatch("getOneUser");
+    console.log(this.userId);
+    if (this.role === "true" || this.id === this.userId) {
+      this.isAdmin = true;
     }
   },
   methods: {
     updateBio() {
-      // this.user.push(e)
       this.user = this.$store.state.user;
       console.log(this.user);
-    }
+      this.addBioForm = false;
+    },
   },
 };
 </script>

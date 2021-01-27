@@ -1,14 +1,14 @@
 <template>
   <div>
-    <AllPosts />
+    <AdminDashboard />
   </div>
 </template>
 
 <script>
-import AllPosts from "../../components/admin/AllPosts";
+import AdminDashboard from "../../components/admin/test/AdminDashboard";
 export default {
   components: {
-    AllPosts,
+    AdminDashboard
   },
 };
 </script>

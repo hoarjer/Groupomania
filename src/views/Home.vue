@@ -8,12 +8,12 @@
       </router-link>
       <AddPost class="align-self-center" />
     </div> -->
-    <LastPosts />
+    <UserDashboard />
   </div>
 </template>
 
 <script>
-import LastPosts from "../components/wallPage/LastPosts";
+import UserDashboard from "../components/wallPage/UserDashboard";
 // import AddPost from "../components/wallPage/AddPost";
 // import UserProfile from "../components/wallPage/UserProfile";
 export default {
@@ -24,7 +24,7 @@ export default {
     }
   },
   components: {
-    LastPosts,
+    UserDashboard,
     // AddPost,
     // UserProfile,
   }, 

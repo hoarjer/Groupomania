@@ -21,8 +21,12 @@ export default {
           })
           .then(res => {
             console.log(res);
+          this.$store.state.adminComments = this.$store.state.adminComments.filter(
+            (comment) => comment._id != this.id
+          );
+          console.log(this.$store.state.adminComments);
           });
-          location.reload();
+          // location.reload();
       }
   },
 };
