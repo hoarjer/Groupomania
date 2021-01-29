@@ -3,7 +3,7 @@
     <div class="col-12 mb-2 d-flex justify-content-around flex-wrap">
       <div class="mb-5">
         <div>
-          <UserProfile :id="id"/>
+          <UserProfile :id="userId"/>
         </div>
         <router-link :to="`/admin`">
           <AdminButton />
@@ -35,10 +35,9 @@ export default {
   },
   data() {
     return {
-      id: localStorage.getItem("userId"),
+      userId: localStorage.getItem("userId"),
       addCommentForm: false,
       comment: [],
-      userId: localStorage.getItem("userId"),
       role: localStorage.getItem("role"),
       isAdmin: false,
     };
@@ -53,20 +52,14 @@ export default {
     },
     user() {
       return this.$store.state.userLoggedIn;
-    }
+    },
   },
   created() {
     axios
-        .get("http://localhost:3000/api/auth/users/" + this.id)
+        .get("http://localhost:3000/api/auth/users/" + this.userId)
         .then((res) => {
           this.$store.state.userLoggedIn = res.data.user;
         });
-  },
-  methods: {
-    updatePosts(e) {
-      console.log("updatePosts", e);
-      this.$store.state.adminPosts.push(e);
-    }
   },
 };
 </script>

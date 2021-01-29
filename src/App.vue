@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav" class="container d-flex justify-content-between">
       <router-link to="/">
-        <img src="./assets/groupomania.png" />
+        <img src="./assets/groupomania.png" alt="goupomania_logo" />
       </router-link>
       <router-link to="/login" v-if="isLoggedIn" class="btn btn-dark"
         ><a @click="logout">Logout</a></router-link

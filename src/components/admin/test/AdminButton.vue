@@ -1,6 +1,6 @@
 <template>
   <div id="AdminButton" >
-    <button v-if="isAdmin" class="btn btn-success">Administrateur</button>
+    <button v-if="isAdmin" class="btn btn-primary" style="color:black;">Administrateur</button>
   </div>
 </template>
 

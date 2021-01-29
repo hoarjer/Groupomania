@@ -5,6 +5,7 @@
         <div class="d-flex">
           <img
             class="figure-img img-fluid rounded mr-3"
+            :alt="post.user.firstname"
             style="max-height:50px;"
             :src="post.user.img_url"
           />
@@ -29,6 +30,7 @@
     <div>
       <img
         :src="post.gif_url"
+        :alt="post.title"
         class="figure-img img-fluid rounded"
         style="max-height:500px;"
       />

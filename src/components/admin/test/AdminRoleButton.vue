@@ -1,7 +1,7 @@
 <template>
   <div id="AdminRoleButton">
-      <button v-if="!admin" @click="adminUpdate" class="btn btn-primary" type="submit">Utilisteur</button>
-      <button v-if="admin" @click="userUpdate" class="btn btn-success" type="submit">Admin</button>
+      <button v-if="!admin" @click="adminUpdate" class="btn btn-primary" type="submit" style="color:black;">Utilisteur</button>
+      <button v-if="admin" @click="userUpdate" class="btn btn-success" type="submit" style="color:black;">Admin</button>
   </div>
 </template>
 

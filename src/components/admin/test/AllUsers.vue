@@ -15,6 +15,7 @@
                     class="figure-img img-fluid rounded mr-3"
                     style="max-height:30px;"
                     :src="user.img_url"
+                    :alt="user.firstname"
                   />
                   <p><strong>{{ user.firstname }} {{ user.lastname }}</strong></p>
                 </div>

@@ -17,6 +17,7 @@ export default new Vuex.Store({
     status: '',
     token: localStorage.getItem('token') || '',
     role: localStorage.getItem('role') || '',
+    userId: '',
     users: [],
     user: {},
     userLoggedIn: {},
@@ -144,6 +145,7 @@ export default new Vuex.Store({
         commit('AUTH_REQUEST')
         userService.login(user)
           .then(res => {
+            console.log(res.data.userId);
             const token = res.data.token;
             const userId = res.data.userId;
             const role = res.data.role;
@@ -151,7 +153,7 @@ export default new Vuex.Store({
             localStorage.setItem('userId', userId);
             localStorage.setItem('role', role);
             axios.defaults.headers.common['Authorization'] = token;
-            commit('AUTH_SUCCESS', token, user, role);
+            commit('AUTH_SUCCESS', token, userId, role);
             resolve(res);
           })
           .catch(err => {
