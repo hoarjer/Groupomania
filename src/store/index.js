@@ -145,7 +145,6 @@ export default new Vuex.Store({
         commit('AUTH_REQUEST')
         userService.login(user)
           .then(res => {
-            console.log(res.data.userId);
             const token = res.data.token;
             const userId = res.data.userId;
             const role = res.data.role;
