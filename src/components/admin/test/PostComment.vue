@@ -45,14 +45,12 @@ export default {
       axios
         .get("http://localhost:3000/api/posts/" + this.id)
         .then((res) => {
-          console.log(res);
           this.post = res.data.post;
           this.showModal = true;
         });
     },
     updateBio() {
       this.user = this.$store.state.user;
-      console.log(this.user);
     },
   },
 };

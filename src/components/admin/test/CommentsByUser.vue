@@ -3,7 +3,7 @@
     <div class="container">
       <div>
         <button @click="show = !show" class="btn btn-light">
-          Commentaires {{ comments.length }}
+          Commentaires ({{ comments.length }})
         </button>
       </div>
       <div v-for="comment in comments" :key="comment._id">

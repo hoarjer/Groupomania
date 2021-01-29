@@ -21,13 +21,12 @@ export default {
   methods: {
     adminUpdate() {
         axios
-          .put("http://localhost:3000/api/auth/users/" + this.user._id, {
+          .put("http://localhost:3000/api/auth/users/" + this.id, {
             is_admin: true,
           })
           .then(() => {
               this.user.is_admin = true;
               this.admin = true;
-            console.log(this.user);
           });
       },
       userUpdate() {

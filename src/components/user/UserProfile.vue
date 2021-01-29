@@ -20,8 +20,11 @@
         ></div>
       </transition>
       <transition name="slide" appear>
-        <div class="modale" v-if="showModal">
+        <div class="modale  col-md-6" v-if="showModal">
           <div class="container">
+            <div class="d-flex justify-content-end m-3">
+              <DeleteUserAccount :id="user._id"/>
+            </div>
             <div class="userProfile d-flex justify-content-around flex-wrap">
               <div class="photo-profil ">
                 <div class="photo">
@@ -40,9 +43,7 @@
                 <UserBio />
               </div>
             </div>
-            <div class="d-flex justify-content-end m-5">
-              <DeleteUserAccount :id="user._id"/>
-            </div>
+            
           </div>
           <button class="btn btn-danger m-3" @click="showModal = false">
             Fermer

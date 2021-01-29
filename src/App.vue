@@ -21,16 +21,15 @@ export default {
   },
   methods: {
     logout() {
-      // window.location.reload();
       localStorage.clear();
       this.$store.dispatch("logout");
     },
   },
-  beforeCreate() {
-    if (this.isLoggedIn) {
-      this.$router.push({ name: "login" });
-    }
-  },
+  // beforeCreate() {
+  //   if (this.isLoggedIn) {
+  //     this.$router.push({ name: "login" });
+  //   }
+  // },
 };
 </script>
 

@@ -25,7 +25,7 @@
               required
             />
           </div>
-          <button type="submit" class="btn btn-primary pr-5 pl-5 m-3">
+          <button type="submit" class="btn btn-dark pr-5 pl-5 m-3">
             Connexion
           </button>
           <hr />

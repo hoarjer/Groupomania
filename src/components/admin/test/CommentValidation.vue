@@ -19,14 +19,11 @@ export default {
           {
             is_public: true
           })
-          .then(res => {
-            console.log(res);
+          .then(() => {
           this.$store.state.adminComments = this.$store.state.adminComments.filter(
             (comment) => comment._id != this.id
           );
-          console.log(this.$store.state.adminComments);
           });
-          // location.reload();
       }
   },
 };

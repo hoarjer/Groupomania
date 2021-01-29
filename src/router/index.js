@@ -30,14 +30,6 @@ const routes = [
     name: 'Register',
     component: () => import('../views/Register.vue')
   },
-  {
-    path: '/secure',
-    name: 'Secure',
-    component: () => import('../components/Secure.vue'),
-    meta: {
-      requiresAuth: true
-    }
-  }
 ]
 
 const router = new VueRouter({

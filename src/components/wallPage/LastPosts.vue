@@ -5,7 +5,7 @@
         <div class="d-flex">
           <img
             class="figure-img img-fluid rounded mr-3"
-            style="max-height:70px;"
+            style="max-height:50px;"
             :src="post.user.img_url"
           />
           <div>
