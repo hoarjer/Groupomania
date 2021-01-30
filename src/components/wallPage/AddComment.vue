@@ -46,13 +46,10 @@ export default {
   props: ["id"],
   methods: {
     createComment() {
-        console.log(this.id);
       axios
         .post(`${this.baseUrl}/comments/posts/${this.id}`, this.comment)
         .then((res) => {
-          console.log(res);
           this.comment = res.data;
-          console.log(this.$store.state.adminComments);
           this.addCommentForm = false;
         });
     },

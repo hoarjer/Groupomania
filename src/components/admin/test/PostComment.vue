@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     showPost() {
-      console.log(this.id);
       axios
         .get("http://localhost:3000/api/posts/" + this.id)
         .then((res) => {

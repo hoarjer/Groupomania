@@ -17,7 +17,7 @@ export default new Vuex.Store({
     status: '',
     token: localStorage.getItem('token') || '',
     role: localStorage.getItem('role') || '',
-    userId: '',
+    userId: localStorage.getItem('userId') || '',
     users: [],
     user: {},
     userLoggedIn: {},
@@ -157,7 +157,7 @@ export default new Vuex.Store({
           })
           .catch(err => {
             commit('AUTH_ERROR');
-            localStorage.removeItem('token');
+            localStorage.clear();
             reject(err);
           })
       })

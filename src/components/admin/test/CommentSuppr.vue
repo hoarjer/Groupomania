@@ -16,12 +16,10 @@ export default {
     suppr() {
       axios
         .delete("http://localhost:3000/api/comments/" + this.id)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           this.$store.state.adminComments = this.$store.state.adminComments.filter(
             (comment) => comment._id != this.id
           );
-          console.log(this.$store.state.adminComments);
         });
     },
   },
