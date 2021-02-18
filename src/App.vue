@@ -25,11 +25,11 @@ export default {
       this.$store.dispatch("logout");
     },
   },
-  // beforeCreate() {
-  //   if (this.isLoggedIn) {
-  //     this.$router.push({ name: "login" });
-  //   }
-  // },
+  beforeCreate() {
+    if (this.isLoggedIn) {
+      this.$router.push({ name: "login" });
+    }
+  },
 };
 </script>
 
